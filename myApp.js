@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
 
+app.use("/public", express.static(process.cwd() + "/public"));
 
 // console.log("Hello World");
 
@@ -9,8 +10,7 @@ let app = express();
 // })
 
 app.get("/", (req, res) => {
-  const absPath = __dirname + "/views/index.html";
-  res.sendFile(absPath);
+  res.sendFile(`${__dirname + "/views/index.html"}`);
 });
 
 module.exports = app;
