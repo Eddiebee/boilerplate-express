@@ -1,9 +1,12 @@
 require("dotenv").config();
+let bodyParser = require("body-parser");
 let express = require("express");
 let app = express();
 
-app.use("/public", express.static(process.cwd() + "/public"));
 // Middleware functions are fncs that take 3 args:
+app.use("/public", express.static(process.cwd() + "/public"));
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // the request object, the response object, and the next function in the app's request-response cycle.
 
 // simple logger
@@ -50,11 +53,12 @@ app.get("/:word/echo", (req, res) => {
 });
 
 // another way to get the input from the client is by encoding the data after the route path, using a query string. The query string is delimited by a question mark (?), and includes field=value couples.
-
 app.get("/name", (req, res) => {
   const { first, last } = req.query;
   const name = `${first} ${last}`;
   res.json({ name });
 });
+
+// use body-parser to parse POST requests
 
 module.exports = app;
