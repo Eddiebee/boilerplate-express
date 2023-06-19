@@ -49,4 +49,12 @@ app.get("/:word/echo", (req, res) => {
   res.json({ echo: word });
 });
 
+// another way to get the input from the client is by encoding the data after the route path, using a query string. The query string is delimited by a question mark (?), and includes field=value couples.
+
+app.get("/name", (req, res) => {
+  const { first, last } = req.query;
+  const name = `${first} ${last}`;
+  res.json({ name });
+});
+
 module.exports = app;
