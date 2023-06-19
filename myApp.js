@@ -8,10 +8,10 @@ app.use("/public", express.static(process.cwd() + "/public"));
 
 // simple logger
 app.use((req, res, next) => {
-  const output = `${req.method + ' ' + req.path + ' - ' + req.ip}`
-  console.log(output)
-  next()
-})
+  const output = `${req.method + " " + req.path + " - " + req.ip}`;
+  console.log(output);
+  next();
+});
 // console.log("Hello World");
 
 // app.get('/', (req, res) => {
@@ -32,11 +32,21 @@ app.get("/json", (req, res) => {
 });
 
 // chain a middleware function
-app.get('/now', (req, res, next) => {
+app.get(
+  "/now",
+  (req, res, next) => {
     req.time = new Date().toString();
     next();
-}, (req, res) => {
-    res.json({time: req.time});
-})
+  },
+  (req, res) => {
+    res.json({ time: req.time });
+  }
+);
+
+// get route parameter input from the client
+app.get("/:word/echo", (req, res) => {
+  const { word } = req.params;
+  res.json({ echo: word });
+});
 
 module.exports = app;
