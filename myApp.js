@@ -1,5 +1,5 @@
 require("dotenv").config();
-let bodyParser = require("body-parser");
+let bodyParser = require('body-parser');
 let express = require("express");
 let app = express();
 
@@ -53,12 +53,12 @@ app.get("/:word/echo", (req, res) => {
 });
 
 // another way to get the input from the client is by encoding the data after the route path, using a query string. The query string is delimited by a question mark (?), and includes field=value couples.
-app.get("/name", (req, res) => {
-  const { first, last } = req.query;
+
+app.post("/name", (req, res) => {
+  const { first, last } = req.body;
   const name = `${first} ${last}`;
   res.json({ name });
 });
 
 // use body-parser to parse POST requests
-
 module.exports = app;
